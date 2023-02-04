@@ -3,11 +3,11 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-module.exports = {
 
-  module.exports = {
+
+module.exports = {
     development: {
       client: "postgresql",
       connection: "",
     },
-  };
+  }
