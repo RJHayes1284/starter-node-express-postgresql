@@ -61,6 +61,7 @@ function hasProperties(...properties) {
     }
   };
 }
+
 function create(req, res, next) {
   suppliersService
     .create(req.body.data)
