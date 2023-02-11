@@ -1,8 +1,9 @@
 const knew = require("../db/connection");
 
-function list() {
-    return knex("products").select("*");
-}
+async function list(req, res, next) {
+    const data = await productsService.list();
+    res.json({ data });
+  }
 
 module.exports = {
     list,
