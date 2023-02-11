@@ -1,11 +1,9 @@
 const productsService = require("./products.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
-function list(req, res, next) {
-  productsService
-    .list()
-    .then((data) => res.json({ data }))
-    .catch(next);
+async function list(req, res, next) {
+const data = await productsService.list();
+res.json({ data })
 }
 
 function read(req, res) {
