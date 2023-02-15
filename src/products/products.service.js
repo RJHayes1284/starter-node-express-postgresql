@@ -29,7 +29,7 @@ async function list(req, res, next) {
   function listTotalWeightByProduct() {
     return knex("products")
     .select(
-      "product_skue",
+      "product_sku",
       "product_title",
       knex.raw(
         "sum(product_weight_in_lbs * product_quantity_n_stock) as total_weight_in_lbs"
