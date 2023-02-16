@@ -1,4 +1,11 @@
-const knew = require("../db/connection");
+const knex = require("../db/connection");
+const mapProperties = require("../utils/map-properties")
+
+const addCategory = mapProperties({
+  category_id: "category.category_id",
+  cantegory_name: "category.category_name",
+  category_description: "categoryr.category_description",
+})
 
 async function list(req, res, next) {
     const data = await productsService.list();
@@ -6,7 +13,13 @@ async function list(req, res, next) {
   }
 
   function read(product_id) {
-    return knex("products").select("*").where({ product_id }).first();
+    return knex("products as p")
+      .join("products_categories as pc", "p.product_id", "pc.product_id")
+      .join("categories as c", "pc.category_id", "c.category_id")
+      .select("p.*", "c.*")
+      .where({ "p.product_id": product_id })
+      .first()
+      .then(addCategory)
   }
 
   function listOutOfStockCount() {
@@ -36,6 +49,15 @@ async function list(req, res, next) {
       )
     )
     .groupBy("product_title", "product_sku")
+  }
+
+  function read(product_id) {
+    return knex("products as p")
+    .join("products_categories as pc", "p.product_id", "pc.product_id")
+    .join("categories as c", "pc.category_id", "c.category_id")
+    .select("p.*", "c.*")
+    .where({ "p.prduct_id": product_id })
+    .first()
   }
 
 module.exports = {
