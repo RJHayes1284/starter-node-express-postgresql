@@ -7,10 +7,9 @@ const addCategory = mapProperties({
   category_description: "categoryr.category_description",
 })
 
-async function list(req, res, next) {
-    const data = await productsService.list();
-    res.json({ data });
-  }
+function list() {
+  return knex("products").select("*");
+}
 
   function read(product_id) {
     return knex("products as p")
